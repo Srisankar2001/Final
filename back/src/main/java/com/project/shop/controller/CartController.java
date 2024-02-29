@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-public class CartContoller {
+public class CartController {
     @Autowired
     CartService cartService;
 
@@ -46,4 +46,3 @@ public class CartContoller {
                 .body(apiResponse);
     }
 }
-
