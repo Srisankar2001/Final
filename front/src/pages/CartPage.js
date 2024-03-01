@@ -94,58 +94,6 @@ function CartPage() {
         }
     };
 
-    // const generateOrderSummary = (user, items) => {
-    //     let message = `Hey, ${user.name} here is your order summary.\n`;
-    //     message += `You ordered ${items.length} items.\nOrder Summary:\n`;
-    //     let total = 0;
-    //     items.forEach(item => {
-    //         const subtotal = item.quantity * item.price;
-    //         message += `${item.name} : ${item.quantity} x ${item.price} LKR = ${subtotal} LKR\n`;
-    //         total += subtotal;
-    //     });
-    //     message += `Your total is ${total} LKR.\nThank you for the purchase.`;
-    //     return message;
-    // };
-
-    // const sendEmail = async (orderId , userId, message) => {
-        
-    //     try {
-    //         const token = getUserData();
-    //         const response = await axios.post("http://localhost:8080/sendMail", { orderId: orderId ,  userId: userId, message: message }, { headers: { 'authorization': token } });
-    //         console.log("Email sent successfully: ",response);
-    //     } catch (error) {
-    //         console.log("Error sending email:", error);
-    //     }
-    // };
-
-    // const handleCheckout = async () => {
-    //     try {
-    //         const token = getUserData();
-    //         const response = await axios.post("http://localhost:8080/createOrder", { userId: parseInt(user.localId) }, { headers: { 'authorization': token } });
-    //         const orderId = response.data.data.id;
-
-    //         const orderItems = items.map(item => ({
-    //             orderId: parseInt(orderId),
-    //             productId: parseInt(item.id),
-    //             quantity: parseInt(item.quantity),
-    //             price: parseFloat(item.price)
-    //         }));
-
-    //         const itemDeleteRequests = items.map(item => axios.post("http://localhost:8080/deleteCart", { id: parseInt(item.cartId) }, { headers: { 'authorization': token } }));
-    //         await Promise.all([...itemDeleteRequests]);
-
-    //         const orderItemRequests = orderItems.map(item => axios.post("http://localhost:8080/orderItem", item, { headers: { 'authorization': token } }));
-    //         await Promise.all([...orderItemRequests]);
-
-    //         const message = generateOrderSummary(user, items);
-    //         await sendEmail(orderId, user.localId, message);
-
-    //         console.log("Checkout successful");
-    //     } catch (error) {
-    //         console.log("Error during checkout:", error);
-    //     }
-    // };
-
     return (
         <div className="container-fluid">
             <NavBar logoutUser={logoutUser} className="navbar navbar-expand-lg navbar-light bg-light"/>
@@ -179,7 +127,7 @@ function CartPage() {
                             </div>
                         ))}
                         <h4>Total : {items.reduce((acc, item) => acc + (item.quantity * item.price), 0)} LKR </h4>
-                        <Link to="#">
+                        <Link to="/checkout">
                          <button className="btn btn-success">Check Out</button>
                         </Link>
                     </div>
