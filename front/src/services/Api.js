@@ -34,7 +34,25 @@ export const UserDetailsApi=()=>{
     return axios.post(USER_DETAILS_URL,data)//ithula namakku return aaka porathu oru promise
 }
 
-
+export const addToCart = async (userId, productId) => {
+    try {
+        console.log(`User: ${userId} ProductId: ${productId}`)
+        let token = getUserData()
+        const response = await axios.post("http://localhost:8080/addToCart", { "userId": userId, "productId" : productId  }, { headers: { 'authorization': token } });
+        
+        if (response.data.data !== null ) {
+            // Product added successfully
+            return "Product added";
+        } else {
+            // Product already added
+            return "Already added";
+        }
+    } catch (error) {
+        // Error occurred while adding product
+        console.error("Error adding product :", error.message);
+        throw error; // Re-throw the error to be handled by the caller
+    }
+};
 
 
 
