@@ -7,6 +7,7 @@ import Mobile from "./pages/Mobile";
 import HomePage from "./pages/HomPage";
 import Brand from "./pages/Brand";
 import ProductPage from "./pages/ProductPage";
+import ViewProductPage from "./pages/ViewProductPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
 
           <Route path="/home" element={<HomePage/>}/>
           <Route path="/products" element={<ProductPage/>}/>
+          <Route path="/products/:mobileId" element={<ViewProductPage/>}/>
           <Route path="/mobile" element={<Mobile/>}/>
           <Route path="/brand" element={<Brand/>}/>
         </Routes>
