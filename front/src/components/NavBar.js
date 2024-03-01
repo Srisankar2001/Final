@@ -12,7 +12,7 @@ const NavBar=(props)=>{
                 <ul className="navbar-nav mr-auto"  >
                     <li className="nav-item"><Link className="nav-link" to="/home">Home</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="#">Products</Link></li>
-                    {isAuthenticated()?<li className="nav-link"><Link className="nav-link" to="/cart">Cart</Link></li>:null}
+                    {isAuthenticated()?<li className="nav-item"><Link className="nav-link" to="/cart">Cart</Link></li>:null}
                     {!isAuthenticated()?<li className="nav-item"><Link className="nav-link" to="/register">Register</Link></li>:null}
                     {!isAuthenticated()?<li><Link className="nav-link" to="/login">Login</Link></li>:null}
                     {/* {?<li className="nav-item"><Link className="nav-link" to="/dashboard" >Dashboard</Link></li>:null} */}
