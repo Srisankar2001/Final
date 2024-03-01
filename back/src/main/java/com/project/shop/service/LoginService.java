@@ -34,19 +34,20 @@ public class LoginService {
 
 
         //validation
-        User isuser=userRepository.findByEmail(signUpRequestDTO.getEmailId());
-        if(isuser!=null)
+//        User isuser=userRepository.findByEmail(signUpRequestDTO.getEmailId());
+//        boolean UserVerified=userRepository.existsByEmailAndVerifiedTrue(signUpRequestDTO.getEmailId());
+       boolean UserNotVerified=userRepository.existsByEmailAndVerifiedFalse(signUpRequestDTO.getEmailId());
+        if(UserNotVerified)
         {
-            if(isuser.isVerified() == true){
                 apiResponse.setError("Email Already exist");
                 return apiResponse;
-            }
-            else
-            {
-                userRepository.deleteByEmail(isuser.getEmail());
-            }
 
         }
+//        if(UserNotVerified)
+//        {
+//            userRepository.deleteByEmail(signUpRequestDTO.getEmailId());
+//        }
+
         //dto to entity
         User userEntity=new User();
         userEntity.setName(signUpRequestDTO.getName());
@@ -73,6 +74,7 @@ public class LoginService {
         //return
         return apiResponse;
     }
+
 
     public APIResponse login(LoginRequestDTO loginRequestDTO) {
         APIResponse apiResponse=new APIResponse();
