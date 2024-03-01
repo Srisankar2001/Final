@@ -5,6 +5,8 @@ import DashboardPage from "./pages/Dashboard";
 import VerifyPage from "./pages/VerifyPage";
 import Mobile from "./pages/Mobile";
 import HomePage from "./pages/HomPage";
+import Brand from "./pages/Brand";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
           <Route path="/" element={<DashboardPage/>}/>
 
           <Route path="/home" element={<HomePage/>}/>
+          <Route path="/products" element={<ProductPage/>}/>
           <Route path="/mobile" element={<Mobile/>}/>
+          <Route path="/brand" element={<Brand/>}/>
         </Routes>
       </BrowserRouter>
       
