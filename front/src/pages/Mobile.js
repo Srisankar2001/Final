@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getUserData } from "../services/Storage";
 
 function Mobile() {
     const [mobile, setMobile] = useState({ name: "", description: "", brand_id: "", price: "" , location: "" })
@@ -8,7 +9,8 @@ function Mobile() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/products");
+                let token = getUserData();
+                const response = await axios.get("http://localhost:8080/products" ,  { headers: { 'authorization': token } });
                 const MobileNames = response.data.data.map((item) => (<div><h4>{item.name}</h4><img src={`image/mobile/${item.location}`}/></div>));
                 setElement(MobileNames);
                 setShow(response.data.data.length > 0);
@@ -38,7 +40,8 @@ function Mobile() {
             mobile.location !== ""
         ) {
             try {
-                const response = await axios.post("http://localhost:8080/createProduct",mobile);
+                let token = getUserData();
+                const response = await axios.post("http://localhost:8080/createProduct", mobile ,  { headers: { 'authorization': token } });
                 setMobile({ name: "", description: "", brand_id: "", price: "", location: "" });
                 console.log(response);
             } catch (error) {
