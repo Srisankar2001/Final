@@ -14,15 +14,12 @@
         <module name="shop (2)" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="shop" target="19" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="shop" options="-parameters" />
-      <module name="shop (2)" options="-parameters" />
-      <module name="shop (3)" options="" />
+      <module name="shop (2)" options="" />
+      <module name="shop (3)" options="-parameters" />
       <module name="shop (4)" options="-parameters" />
     </option>
   </component>

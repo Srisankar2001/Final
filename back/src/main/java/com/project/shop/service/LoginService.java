@@ -34,42 +34,70 @@ public class LoginService {
 
 
         //validation
-//        User isuser=userRepository.findByEmail(signUpRequestDTO.getEmailId());
-//        boolean UserVerified=userRepository.existsByEmailAndVerifiedTrue(signUpRequestDTO.getEmailId());
-       boolean UserNotVerified=userRepository.existsByEmailAndVerifiedFalse(signUpRequestDTO.getEmailId());
-        if(UserNotVerified)
-        {
-                apiResponse.setError("Email Already exist");
-                return apiResponse;
+        User isuser=userRepository.findByEmail(signUpRequestDTO.getEmailId());
 
-        }
-//        if(UserNotVerified)
-//        {
-//            userRepository.deleteByEmail(signUpRequestDTO.getEmailId());
-//        }
 
-        //dto to entity
-        User userEntity=new User();
-        userEntity.setName(signUpRequestDTO.getName());
-        userEntity.setEmail(signUpRequestDTO.getEmailId());
-        userEntity.setPhoneNumber(signUpRequestDTO.getPhoneNumber());
-        userEntity.setPassword(signUpRequestDTO.getPassword());
+        if (isuser == null) {
+            //dto to entity
+            User userEntity=new User();
+            userEntity.setName(signUpRequestDTO.getName());
+            userEntity.setEmail(signUpRequestDTO.getEmailId());
+            userEntity.setPhoneNumber(signUpRequestDTO.getPhoneNumber());
+            userEntity.setPassword(signUpRequestDTO.getPassword());
 
-        //store entity
+            //store entity
 //        userEntity=userRepository.save(userEntity);
-        String otp=generateOTP();
-        userEntity.setOtp(otp);
-        userEntity= userRepository.save(userEntity);
-        sendVerificationEmail(userEntity.getEmail(),otp);
+            String otp=generateOTP();
+            userEntity.setOtp(otp);
+            userEntity= userRepository.save(userEntity);
+            sendVerificationEmail(userEntity.getEmail(),otp);
 
 
-        //generate jwt
-        String token=jwtUtils.generateJwt(userEntity);
+            //generate jwt
+            String token=jwtUtils.generateJwt(userEntity);
 
-        Map<String,Object> data=new HashMap<>();
-        data.put("accessToken",token);
+            Map<String,Object> data=new HashMap<>();
+            data.put("accessToken",token);
 
-        apiResponse.setData(data);
+            apiResponse.setData(data);
+
+            return apiResponse;
+        }
+        else if (isuser.isVerified()) {
+            apiResponse.setError("Email is already exist");
+            return apiResponse;
+        }
+        else if (!isuser.isVerified()) {
+           userRepository.deleteById(isuser.getUserId());
+
+            //dto to entity
+            User userEntity=new User();
+            userEntity.setName(signUpRequestDTO.getName());
+            userEntity.setEmail(signUpRequestDTO.getEmailId());
+            userEntity.setPhoneNumber(signUpRequestDTO.getPhoneNumber());
+            userEntity.setPassword(signUpRequestDTO.getPassword());
+
+            //store entity
+//        userEntity=userRepository.save(userEntity);
+            String otp=generateOTP();
+            userEntity.setOtp(otp);
+            userEntity= userRepository.save(userEntity);
+            sendVerificationEmail(userEntity.getEmail(),otp);
+
+
+            //generate jwt
+            String token=jwtUtils.generateJwt(userEntity);
+
+            Map<String,Object> data=new HashMap<>();
+            data.put("accessToken",token);
+
+            apiResponse.setData(data);
+
+            return apiResponse;
+        }
+
+
+
 
         //return
         return apiResponse;
