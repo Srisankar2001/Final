@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { getUserData } from "../services/Storage";
 
 function Brand() {
     const [brand, setBrand] = useState({ name: "", location: "" })
     const [show,setShow] = useState(false)
     const [element,setElement] = useState([])
     useEffect(()=>{
-                axios.get("http://localhost:8080/brand")
+                let token = getUserData();
+                axios.get("http://localhost:8080/brand" , { headers: { 'authorization': token } })
                 .then(response => {
                     const brandNames = response.data.map((item) => (<div><img src={`image/logos/${item.location}`} height="20px" width="20px"/><h3>{item.name}</h3></div>))
                     setElement(brandNames)
@@ -28,7 +30,8 @@ function Brand() {
     function handleSubmit(e) {
         e.preventDefault();
         if(brand.name.trim() !== "" && brand.location !== ""){
-            axios.post("http://localhost:8080/brand",brand)
+            let token = getUserData();
+            axios.post("http://localhost:8080/brand",brand , { headers: { 'authorization': token } })
             .then(response => {
                 setBrand({name: "", location: ""});
                 console.log(response)
@@ -42,7 +45,7 @@ function Brand() {
     return (
         <div className="container" style={{ width: '80%', height: '500px' }}>
             <form className="form row d-flex flex-column" onSubmit={handleSubmit}>
-                <input type="text" name="name" value={brand.name} placeholder="Enter brand name" onChange={handleChange} />
+                <input type="text" name="name" value={brand} placeholder="Enter brand name" onChange={handleChange} />
                 <input type="file" name="location" onChange={handleChange} />
                 <input type="submit" value="Submit" />
             </form>
