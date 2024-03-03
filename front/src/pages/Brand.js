@@ -45,9 +45,9 @@ function Brand() {
     return (
         <div className="container" style={{ width: '80%', height: '500px' }}>
             <form className="form row d-flex flex-column" onSubmit={handleSubmit}>
-                <input type="text" name="name" value={brand} placeholder="Enter brand name" onChange={handleChange} />
-                <input type="file" name="location" onChange={handleChange} />
-                <input type="submit" value="Submit" />
+                <input type="text" name="name" value={brand.name} placeholder="Enter brand name" className="form-control" onChange={handleChange} />
+                <input type="file" name="location"  className="form-control-file" onChange={handleChange} />
+                <input type="submit" value="Submit" className="btn btn-primary" style={{ width: '100px', height: '45px' }}/>
             </form>
             {show ? (
         <>

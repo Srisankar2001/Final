@@ -8,6 +8,7 @@ import { addToCart } from "../services/Api";
 import { jwtDecode } from "jwt-decode";
 
 
+
 function ProductPage() {
     const [brands, setBrands] = useState([]);
     const [mobiles, setMobiles] = useState([]);
@@ -93,16 +94,16 @@ function ProductPage() {
                                         <img src={`image/mobile/${mobile.location}`} className="card-img-top p-5" alt={mobile.name} height="250px" width="150px" />
                                         <div className="card-body" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                                             <h5 className="card-title">{mobile.name}</h5>
-                                            <p className="card-text">{mobile.price}.00 LKR</p>
+                                            <p className="card-text">{mobile.price} LKR</p>
                                             <div className="button-container " style={{ display: "none", position: "absolute", bottom: "10px", left: "50%", transform: "translateX(-50%)" }}>
                                                 {isAuthenticated() ?
                                                     <button className="btn btn-primary " onClick={() => { handleAddToCart(user.localId, mobile.id) }} style={{ width: "70px",height:"50px",marginTop:"5px" }}>Cart</button>
                                                     :
                                                     <Link to='/login'>
-                                                        <button className="btn btn-primary mt-2" style={{ width: "70px",height:"50px" ,marginTop:"15px"}}>Cart</button>
+                                                        <button className="btn btn-primary mt-2" style={{ width: "70px",height:"50px" ,marginTop:"5px" , marginRight:"20px"}}>Cart</button>
                                                     </Link>}
                                                 <Link to={`${mobile.id}`}>
-                                                    <button className="btn btn-secondary m-1 " style={{ width: "70px",height:"50px" ,marginTop:"10px" , marginRight:"20px"}}>View</button>
+                                                    <button className="btn btn-secondary m-1 " style={{ width: "70px",height:"50px" ,marginTop:"5px" , marginRight:"20px"}}>View</button>
                                                 </Link>
                                             </div>
                                         </div>

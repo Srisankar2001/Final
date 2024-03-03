@@ -21,13 +21,12 @@ export default function LoginPage(){
     const [inputs,setInputs]=useState({
         email:"",
         password:""
-        //ithula naama kodukkira name inputs la kuduthuruppame tag nama athe irukkanum appathaan setInputs function ah use pannika mudiyum
-    })//inputs kkaana state
+    })
 
     const handleInput=(event)=>{
         setInputs({...inputs,[event.target.name]:event.target.value})
 
-    }//ella inputs kku
+    }
 
     const handleSubmit=(event)=>{
         console.log(inputs);
@@ -86,7 +85,7 @@ export default function LoginPage(){
 
     return(
         <div>
-            <NavBar/>
+            <NavBar className="navbar navbar-expand-lg navbar-light bg-light"/>
         <section className="login-block">
             <div className="container">
                 <div className="row ">
@@ -132,8 +131,9 @@ export default function LoginPage(){
                         </div>
                         <div className="clearfix"></div>
                         <div className="form-group">
-                        Create new account ? Please <Link  to="/register">Register</Link>
+                        Create new account ? Please <Link  to="/register">Register</Link><br/>
                         {/* Link endrathu react router ah work panna vaikkum so puthu url vantha athkketha component ah load panna vaikkum  */}
+                        <Link to="/forgotpassword">Forgot Password</Link>
                         </div>
                         </form>
                     </div>

@@ -164,4 +164,49 @@ public class LoginService {
         emailService.sendEmail(email,subject,body);
     }
 
+    public APIResponse resetPassword(String email) {
+        APIResponse apiResponse=new APIResponse();
+        User user=userRepository.findByEmail(email);
+        if (user == null) {
+            apiResponse.setError("User not found");
+        }else{
+            String otp=generateOTP();
+            user.setOtp(otp);
+            user=userRepository.save(user);
+            sendVerificationEmailForResetPassword(user.getEmail(),otp);
+        }
+        return apiResponse;
+    }
+
+    public APIResponse verifyresetpassword(String email,String otp) {
+        APIResponse apiResponse=new APIResponse();
+        User user=userRepository.findByEmail(email);
+        if (user == null) {
+            apiResponse.setError("User not found");
+        } else if (!otp.equals(user.getOtp())) {
+            apiResponse.setError("Incorrect OTP");
+        } else {
+            // OTP matches, mark the user as verified
+            user.setVerified(true);
+            userRepository.save(user);
+            apiResponse.setData("User verified successfully");
+        }
+        return apiResponse;
+    }
+
+    public APIResponse changepassword(String email, String password) {
+        APIResponse apiResponse=new APIResponse();
+        User user=userRepository.findByEmail(email);
+        user.setPassword(password);
+        userRepository.save(user);
+        apiResponse.setData("password changed successfully");
+        return apiResponse;
+    }
+    private void sendVerificationEmailForResetPassword(String email,String otp){
+        String subject="Email verification for Reset Password";
+        String body="your verification otp is:"+otp;
+
+        emailService.sendEmail(email,subject,body);
+    }
+
 }

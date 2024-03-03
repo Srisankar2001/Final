@@ -54,5 +54,38 @@ export const addToCart = async (userId, productId) => {
     }
 };
 
+export const ForgotPasswordApi = async (email) => {
+    try {
+        // Send POST request to server
+        const encodedEmail = encodeURIComponent(email);
+        const response = await axios.post(`http://localhost:8080/emailForResetPassword?email=${encodedEmail}`)
+        // Return response data
+        return response;
+    } catch (error) {
+        // Handle any errors
+        console.error("Error in ForgotPasswordApi:", error);
+        throw error;
+    }
+}
 
+export const  PasswordChangeApi = async ( email , password ) => {
+    try {
+        // Send POST request to server
+        const encodedEmail = encodeURIComponent(email);
+        const encodedPassword = encodeURIComponent(password);
+        
+        const response = await axios.post(`http://localhost:8080/changePassword?email=${encodedEmail}&password=${encodedPassword}`);
 
+        // Return response data
+        return response;
+    } catch (error) {
+        // Handle any errors
+        console.error("Error in ForgotPasswordApi:", error);
+        throw error;
+    }
+}
+
+export const VerifyEmailApi = (email,otp)=>{
+   
+    return axios.post(`http://localhost:8080/verifyotp?email=${email}&otp=${otp}`);
+}

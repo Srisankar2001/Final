@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @CrossOrigin("*")
 public class LoginController {
     @Autowired
@@ -49,6 +49,37 @@ public class LoginController {
                 .body(apiResponse);
     }
 
+    @PostMapping("/emailForResetPassword")
+    public ResponseEntity<APIResponse> resetPassword(@RequestParam String email){
+        System.out.println("Email "+email);
+        APIResponse apiResponse=loginService.resetPassword(email);
 
+
+        return ResponseEntity
+                .status(apiResponse.getStatus())
+                .body(apiResponse);
+    }
+
+    @PostMapping("/verifyotp")
+    public ResponseEntity<APIResponse> verifyresetpassword(@RequestParam String email,@RequestParam String otp){
+//        APIResponse apiResponse=new APIResponse();
+        APIResponse apiResponse=loginService.verifyresetpassword(email,otp);
+
+
+        return ResponseEntity
+                .status(apiResponse.getStatus())
+                .body(apiResponse);
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<APIResponse> changepassword(@RequestParam String email,@RequestParam String password){
+        System.out.println("email: "+email);
+        System.out.println("password: "+password);
+        APIResponse apiResponse=loginService.changepassword(email,password  );
+
+        return ResponseEntity
+                .status(apiResponse.getStatus())
+                .body(apiResponse);
+    }
 
 }
